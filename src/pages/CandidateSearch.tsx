@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { searchGithub, searchGithubUser } from '../api/API';
-import Candidate from './Candidate';
+import Candidate from '../components/Candidate';
+import { Candidate as CandidateType } from '../interfaces/Candidate.interface.tsx';
 
 const CandidateSearch = () => {
-  const [candidate, setCandidate] = useState<any>(null);
-  const [savedCandidates, setSavedCandidates] = useState<any[]>([]);
+  const [candidate, setCandidate] = useState<CandidateType | null>(null);
+  const [savedCandidates, setSavedCandidates] = useState<CandidateType[]>([]);
 
   useEffect(() => {
     const loadCandidate = async () => {
       const data = await searchGithub();
-      setCandidate(data);
+      setCandidate(data[0]);
     };
 
     loadCandidate();
@@ -22,13 +23,13 @@ const CandidateSearch = () => {
       setSavedCandidates(updatedSavedCandidates);
       localStorage.setItem('savedCandidates', JSON.stringify(updatedSavedCandidates));
       const newCandidate = await searchGithub();
-      setCandidate(newCandidate);
+      setCandidate(newCandidate[0]);
     }
   };
 
   const handleSkip = async () => {
     const newCandidate = await searchGithub();
-    setCandidate(newCandidate);
+    setCandidate(newCandidate[0]);
   };
 
   useEffect(() => {
