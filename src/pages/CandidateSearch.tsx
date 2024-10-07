@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { searchGithub, searchGithubUser } from '../api/API';
-import Candidate from '../components/Candidate';
+import { searchGithub, searchGithubUser } from '../api/API.tsx';
+import Candidate from '../components/Candidate.tsx';
 import { Candidate as CandidateType } from '../interfaces/Candidate.interface.tsx';
 
 const CandidateSearch = () => {
@@ -23,13 +23,22 @@ const CandidateSearch = () => {
       setSavedCandidates(updatedSavedCandidates);
       localStorage.setItem('savedCandidates', JSON.stringify(updatedSavedCandidates));
       const newCandidate = await searchGithub();
-      setCandidate(newCandidate[0]);
+      if (newCandidate.length > 0) {
+        setCandidate(newCandidate[0]);
+      } else {
+        setCandidate(null);
+      }
     }
   };
 
+  
   const handleSkip = async () => {
     const newCandidate = await searchGithub();
-    setCandidate(newCandidate[0]);
+    if (newCandidate.length > 0) {
+      setCandidate(newCandidate[0]);
+    } else {
+      setCandidate(null);
+    }
   };
 
   useEffect(() => {
