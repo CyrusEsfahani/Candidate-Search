@@ -3,7 +3,7 @@
 export interface Candidate {
     id: number;
     name: string;
-    username: string;
+    login: string;
     location: string;
     avatar_url: string;
     email: string | null;

@@ -18,7 +18,8 @@ const CandidateSearch = () => {
 
   const handleSave = async () => {
     if (candidate) {
-      await searchGithubUser(candidate.username); // Assuming this saves the candidate
+      console.log(candidate);
+      await searchGithubUser(candidate.login); // Assuming this saves the candidate
       const updatedSavedCandidates = [...savedCandidates, candidate];
       setSavedCandidates(updatedSavedCandidates);
       localStorage.setItem('savedCandidates', JSON.stringify(updatedSavedCandidates));
@@ -43,6 +44,7 @@ const CandidateSearch = () => {
 
   useEffect(() => {
     const savedCandidatesFromStorage = localStorage.getItem('savedCandidates');
+    console.log(savedCandidatesFromStorage);
     if (savedCandidatesFromStorage) {
       setSavedCandidates(JSON.parse(savedCandidatesFromStorage));
     }
